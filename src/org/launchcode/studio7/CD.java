@@ -7,46 +7,25 @@ public class CD extends Disk implements Spinnable{
 
     // TODO: Determine which fields, methods, and constructors can be extended from the base class and which ones
     //  need to be declared separately.
-    //they both spin
-
 
     public CD(){
-        this.spinRate = 50;
-    }
-    public void spin(Disk disk){
-        this.isSpinning = true;
-        while (this.isSpinning == true) {
-            delay(50);
-            this.spin(this);
-        }
-        //spin logic
-    }
-    //they both store data
-    public void storeData(Data data, Laser laser){
-        this.data = data;
-        this.writeData(data, laser);
-    }
-
-    //data gets written to the discs by using a laser
-    public void writeData(Data data, Laser laser){
-        laser.on();
-        laser.write(data);
-        laser.off();
-    }
-    // the data on the discs can be read by using a laser
-    public Data readData(){
-        return this.data;
+        super(700,500);
     }
 
 
+    @Override
+    public void spinDisc() {
+        System.out.println("A cd spins at a rate of " + this.getSpinSpeed() + " rpm");
+    }
 
-    //once loaded, they both report information like name, capacity, contents
-    //play media
-    //stop media
-    //roll
-    //can be copied
-    //reflect light
+    @Override
+    public void storeData(String data) {
+        this.writeData(data);
+    }
 
-
-    //read,write speeds
+    @Override
+    public boolean isFull() {
+        if(this.readData().length() >= this.getStorageCapacity()) return true;
+        else return false;
+    }
 }
